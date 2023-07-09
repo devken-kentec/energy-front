@@ -1,0 +1,178 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item"><a routerLink="/cadastro">Listagem</a></li>
+      <li class="breadcrumb-item active">Formulário</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        CADASTRO DE EXERCICIOS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/exercicio" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="exerForm">
+    <div class="card" >
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Formulário para cadastro de exercícios
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-1">
+            <label for="id">Código:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              formControlName="id"
+              readonly
+            />
+          </div>
+          <div class="form-group col-md-5">
+            <label for="nome">Nome:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nome"
+              formControlName="nome"
+
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="nivel">Nível:</label>
+            <select
+              id="nivel"
+              class="form-control"
+              name="nivel"
+              formControlName="nivel"
+            >
+              <option>Iniciante</option>
+              <option>Intermediário</option>
+              <option>Avançado</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="tipo">Tipo:</label>
+            <select
+            id="tipo"
+            class="form-control"
+            name="tipo"
+            formControlName="tipo"
+          >
+            <option>Solo</option>
+            <option>Aparelho</option>
+            <option>Barra</option>
+            <option>Barra Fixa</option>
+            <option>Bola</option>
+            <option>Corda</option>
+            <option>Halteres</option>
+            <option>Saco de Pancada</option>
+          </select>
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-4">
+            <label for="funcao">Função:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="funcao"
+              formControlName="funcao"
+            />
+          </div>
+          <div class="form-group col-md-2">
+            <label for="execucao">Execução:</label>
+            <select
+              id="execucao"
+              class="form-control"
+              formControlName="execucao"
+            >
+              <option>Tempo</option>
+              <option>Série</option>
+              <option>Quantidade</option>
+              <option>Distância</option>
+              <option>Peso</option>
+              <option>Contagem</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="detalhe">Detalhe:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="detalhe"
+              formControlName="detalhe"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="mod">Modalidade:</label>
+            <select
+              id="mod"
+              class="form-control"
+              formControlName="modalidade"
+            >
+              <option>Anaeróbico</option>
+              <option>Aeróbico</option>
+              <option>Aquecimento</option>
+              <option>Alongamento</option>
+              <option>Musculação</option>
+              <option>Ergometria</option>
+              <option>Calistenia</option>
+              <option>Circuito metabólico funcional</option>
+              <option>Treino funcional</option>
+              <option>Cross fit</option>
+              <option>Natação</option>
+              <option>Hidroginástica</option>
+              <option>Acqua cross</option>
+              <option>Pilates</option>
+              <option>Artes marciais</option>
+              <option>Dança</option>
+              <option>Ritmos</option>
+              <option>Resistência</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-12">
+            <label for="descricao">Descrição:</label>
+            <textarea class="form-control" id="descricao" rows="4" formControlName="descricao"></textarea>
+          </div>
+        </div>
+        <div class="form-row col-md-12 d-flex justify-content-between">
+          <div class="form-group col-md-2">
+            <label for="situacao">Situação:</label>
+            <select
+              id="situacao"
+              class="form-control"
+              formControlName="statusExercicio"
+            >
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </div>
+          <div *ngIf="mostrarBtnImg" class="form-group col-md-2 d-flex align-self-end">
+            <button  class="btn btn-info" type="button" (click)="incluirImg()" >
+              <i class="fas fa-plus"></i>&nbsp; Imagens &nbsp;<i class="fas fa-dumbbell"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div>
+    <button
+      type="submit"
+      (click)="onSumit()"
+      class="btn btn-success float-right mt-3"
+    >
+    <i class="fas fa-save"></i> &nbsp;Salvar
+    </button>
+  </div>
+</div>

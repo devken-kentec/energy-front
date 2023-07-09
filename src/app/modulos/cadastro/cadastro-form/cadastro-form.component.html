@@ -1,0 +1,228 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item"><a routerLink="/cadastro">Listagem</a></li>
+      <li class="breadcrumb-item active">Formulário</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        CADASTRO DE PESSOAS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/cadastro" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="cadForm">
+    <div class="card">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Formulário para Cadastro de Pessoas
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-1">
+            <label for="id">Matrícula:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              formControlName="id"
+              readonly
+            />
+          </div>
+          <div class="form-group col-md-5">
+            <label for="nome">Nome:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nome"
+              formControlName="nome"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="cpf">CPF:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cpf"
+              formControlName="cpf"
+              mask="CPF_CNPJ"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="nasc">Data de nascimento:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="nasc"
+              formControlName="dataNascimento"
+            />
+          </div>
+        </div>
+        <div class="form-row col-md-12" *ngIf="ativarResponsavel">
+          <div class="form-group col-md-6">
+            <label for="responsavel">Responsável:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="responsavel"
+              formControlName="responsavel"
+            />
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-3">
+            <label for="fone1">Fone Res.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fone1"
+              formControlName="fone"
+              mask="(00) 0000-0000"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="fone2">Fone Zap.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fone2"
+              formControlName="foneCel"
+              mask="(00) 0 0000-0000"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="fone3">Fone Cel.:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fone3"
+              formControlName="foneCel2"
+              mask="(00) 0 0000-0000"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="sexo">Sexo:</label>
+            <select
+              id="sexo"
+              class="form-control"
+              name="sexo"
+              formControlName="sexo"
+            >
+              <option>Masculino</option>
+              <option>Feminino</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-2">
+            <label for="cep">CEP:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cep"
+              formControlName="cep"
+              mask="00.000-000"
+              (blur)="buscarCep()"
+            />
+          </div>
+          <div class="form-group col-md-7">
+            <label for="end">Endereço:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="end"
+              placeholder="Endereço completo"
+              formControlName="endereco"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="compl">Complemneto:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="compl"
+              placeholder="Complemento"
+              formControlName="complemento"
+            />
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-3">
+            <label for="email">Email:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              placeholder="xxxxxx@xxx.com.br"
+              formControlName="email"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="tuser">Tipo de usuário:</label>
+            <select id="tuser" class="form-control" formControlName="tipoUser">
+              <option>Administrador</option>
+              <option>Aluno</option>
+              <option>Estagiário</option>
+              <option>Professor</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="situacao">Situação:</label>
+            <select id="situacao" class="form-control" formControlName="statusMatricula">
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="login">Login:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="login"
+              placeholder="Nome de usuário"
+              formControlName="login"
+            />
+          </div>
+          </div>
+          <div class="form-row col-md-12" *ngIf="btnIncluirResponsavel">
+            <button type="button" (click)="ativarCampo()" class="btn btn-info">Incluir Responsável</button>
+          </div>
+          <div class="form-row col-md-12">
+            <div *ngIf="mostrarIncluirFoto" class="col-md-3">
+              <label for="foto">Incluir Foto:</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="foto"
+                (change)="uploadFoto($event)"
+              />
+            </div>
+            <div *ngIf="mostrarFoto" class="form-group col-md-3 card mt-4">
+              <div class="d-flex justify-content-center mt-3">
+                <img  style="width: 60%; box-shadow: 2px 2px 5px black;"  class="card-img-top" [src]="render"/>
+              </div>
+              <div class="card-body">
+                <button type="button" (click)="adicionarNovaFoto()" class="btn btn-primary col-md-12"><i class="fas fa-user-plus"></i>&nbsp;Adicionar nova foto</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </form>
+  <div>
+    <button
+      type="submit"
+      (click)="onSumit()"
+      class="btn btn-success float-right mt-3"
+    >
+    <i class="fas fa-save"></i> &nbsp;Salvar
+    </button>
+  </div>
+</div>
+

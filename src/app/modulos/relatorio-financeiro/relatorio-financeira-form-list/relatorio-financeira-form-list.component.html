@@ -1,0 +1,202 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Listagem</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTAGEM DE MENSALIDADES
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation lista" novalidate [formGroup]="relForm">
+		<div class="col-12 mb-2">
+      <div class="col-md-12">
+        <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseAluno" aria-expanded="false" aria-controls="collapseExample">
+          Financeiro por Aluno
+        </button>
+        <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapsePeriodo" aria-expanded="false" aria-controls="collapseExample">
+          Financeiro por Período
+        </button>
+        <button class="btn btn-info mb-2" type="button" data-toggle="collapse" data-target="#collapseTipo" aria-expanded="false" aria-controls="collapseExample">
+          Financeiro por Tipo de Pagamento
+        </button>
+      </div>
+      <div class="collapse mb-2" id="collapseAluno">
+      <div class="card" style="box-shadow: 2px 2px 5px #000;">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem do Financeiro por Aluno:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-2">
+          <label for="id">Matrícula:</label>
+          <input type="text" class="form-control" id="id" formControlName="alunoId"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="situacao">Situação:</label>
+          <select id="situacao" class="form-control" formControlName="statusParcela">
+            <option value="">Nenhum</option>
+            <option>Pago</option>
+            <option>A receber</option>
+          </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisarAluno()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="collapse mb-2" id="collapsePeriodo">
+      <div class="card" style="box-shadow: 2px 2px 5px #000;">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem do Financeiro por Período:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-3">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="situacao">Situação:</label>
+          <select id="situacao" class="form-control" formControlName="statusParcela">
+            <option value="">Nenhum</option>
+            <option>Pago</option>
+            <option>A receber</option>
+          </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisarPeriodo()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="collapse" id="collapseTipo">
+      <div class="card" style="box-shadow: 2px 2px 5px #000;">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+         <div class="row col-12 ml-1">
+          <label for="nDoTermo">Filtro para Listagem do Financeiro por Forma de Pagamento:</label>
+        </div>
+      </div>
+      <div class="card-body">
+      <div class="row col-12">
+        <div class="form-group col-md-3">
+          <label for="dataIn">Data Inicial:</label>
+          <input id="dataIn" type="date" class="form-control" formControlName="dataInicial"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="dataOut">Data Final:</label>
+          <input id="dataOut" type="date" class="form-control" formControlName="dataFinal"/>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="situacao">Forma de Pagamento:</label>
+          <select id="situacao" class="form-control" formControlName="tipoPagamento">
+            <option value="">Nenhum</option>
+                            <option>Dinheiro</option>
+                            <option>Débito</option>
+                            <option>Crédito</option>
+                            <option>Cheque</option>
+                            <option>Transferência</option>
+                            <option>PIX</option>
+                            <option>Outros</option>
+          </select>
+        </div>
+        <div class="row col-12">
+          <div class="col-2">
+            <button (click)="pesquisarTipo()" class="btn btn-info float-left" >
+              <i class="fas fa-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </form>
+  <div class="d-flex justify-content-center mt-5" style="font-size: 14pt; font-weight: bold;" *ngIf="!parcelas">USE O FILTRO ACIMA PARA GERAR A LISTA.</div>
+  <div id="table" class="table-responsive">
+    <table *ngIf="parcelas" class="table table-hover">
+      <thead>
+        <tr class="bg-dark text-light">
+          <th>Cód</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Total pago</th>
+          <th>Data do pagamento</th>
+          <th>Situação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parcela of parcelas">
+          <td>
+            <strong>{{parcela.id}}</strong><br>
+            <small>Vencimento: dia {{parcela.diaVencimento}}</small><br>
+            <small>Valor mensal: {{parcela.valorMensal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</small>
+          </td>
+          <td>
+            <strong>{{parcela.nome}}</strong><br>
+            <small>Ficha financeira: {{parcela.fichaFinanceira}} &nbsp;</small><br>
+            <small>Status: {{parcela.statusFichaFinanceira}}</small>&nbsp;-&nbsp;<small>login: {{parcela.login}}</small>
+          </td>
+          <td>
+              {{globalService.formatarCpf(parcela.cpf)}}<br/>
+              <small>Cód. da Parcela: {{parcela.id}} &nbsp;</small><br>
+              <small>Valor: {{parcela.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}</small>
+          </td>
+          <td>
+             {{parcela.valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}}<br/>
+            <small>Juros: {{parcela.juro.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}} </small><br/>
+            <small>Descontos: {{parcela.desconto.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}} </small>
+          </td>
+          <td>
+              {{parcela.dataPagamento | date: 'dd/MM/yyyy'}}<br/>
+              <small>Obs.: {{parcela.observacao}} </small>
+         </td>
+         <td>
+              <span [style.color]="mudarCor(parcela.statusParcela)"> {{ parcela.statusParcela }}</span><br>
+              <small>Tipo do pag.: {{parcela.tipoPagamento}}</small>
+         </td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+  <div>
+  </div>
+</div>
+

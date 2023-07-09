@@ -1,0 +1,151 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item"><a routerLink="/fichatecnica">Listagem</a></li>
+      <li class="breadcrumb-item active">Formulário</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        CADASTRO DA FICHA TÉCNICA
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/fichatecnica" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="fichaTecnicaForm">
+    <div class="card">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Formulário para Cadastro de Pessoas
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-2">
+            <label for="id">Matrícula:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              formControlName="matricula"
+            />
+          </div>
+          <div class="form-group col-md-10" style="margin-top: 36px">
+            <button (click)="incluirUser()" class="btn btn-outline-info btn-sm "><i class="fas fa-search"></i>&nbsp;Buscar</button>
+          </div>
+        </div>
+        <div class="border-top" *ngIf="mostrar" >
+        <div class="form-row col-md-12 mt-3" >
+          <div class="form-group col-md-2">
+            <label for="ft">Ficha Técnica N.º:</label>
+            <p id="ft" style="color: red; font-weight: bold; font-size:14pt; text-align: center;">{{id_fic_tec}}</p>
+           </div>
+          <div class="form-group col-md-5">
+              <label for="na">Nome do aluno:</label>
+              <p id="na" style="color: blue; font-weight: bold; font-size: 14pt">{{nomeAluno | uppercase}}</p>
+          </div>
+          <div class="form-group col-md-3">
+              <label for="dataAval">Data da avaliação:</label>
+              <input type="date" class="form-control" id="dataAval" formControlName="dataAvaliacao" style="text-align: center;"/>
+          </div>
+          <div class="form-group col-md-2">
+              <label for="peso">Peso:</label>
+              <input type="number" class="form-control" id="peso" formControlName="peso" style="text-align: right;"/>
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-3">
+            <label for="hEnt">Hora da entrada:</label>
+            <input type="time" class="form-control" id="hEnt" formControlName="horaEntrada" style="text-align: right;"/>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="hSai">Hora da saída:</label>
+            <input type="time" class="form-control" id="hSai" formControlName="horaSaida" style="text-align: right;"/>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="seg">Segunda:</label>
+            <select id="seg" class="form-control" formControlName="segunda">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="ter">Terça:</label>
+            <select id="ter" class="form-control" formControlName="terca">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="qua">Quarta:</label>
+            <select id="qua" class="form-control" formControlName="quarta">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="qui">Quinta:</label>
+            <select id="qui" class="form-control" formControlName="quinta">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="sex">Sexta:</label>
+            <select id="sex" class="form-control" formControlName="sexta">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1">
+            <label for="sab">Sabádo:</label>
+            <select id="sab" class="form-control" formControlName="sabado">
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-12">
+            <label for="descricao">Descrição:</label>
+            <textarea class="form-control" id="descricao" rows="4" formControlName="descricao"></textarea>
+          </div>
+        </div>
+        <div class="form-row col-md-12 d-flex justify-content-between">
+        <div class="form-group col-md-2">
+          <label for="situacao">Situação:</label>
+          <select
+            id="situacao"
+            class="form-control"
+            formControlName="statusFichaTecnica"
+          >
+            <option>Ativo</option>
+            <option>Inativo</option>
+          </select>
+        </div>
+        <div *ngIf="mostBtnExer" class="form-group col-md-2 d-flex align-self-end">
+          <button (click)="incluirExer()" class="btn btn-info ">
+            <i class="fas fa-plus"></i>&nbsp; Exercícios &nbsp;<i class="fas fa-dumbbell"></i>
+          </button>
+        </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </form>
+  <div>
+    <button
+      type="submit"
+      (click)="onSubmit()"
+      class="btn btn-success float-right mt-3"
+    >
+    <i class="fas fa-save"></i> &nbsp;Salvar
+    </button>
+  </div>
+</div>
+

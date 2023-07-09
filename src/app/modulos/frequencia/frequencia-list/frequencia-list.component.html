@@ -1,0 +1,78 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Lista de Frequência</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTA DE  PRESENÇA
+      </h1>
+    </div>
+    <div class="col-md">
+      <button (click)="voltar()" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="frequenciaForm">
+    <div class="card">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Lista para Conferência de Frequência
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-3">
+            <label for="di">Data Inicial:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="di"
+              formControlName="dataInicial"
+              placeholder="Data Inicial"
+              />
+          </div>
+          <div class="form-group col-md-3 ">
+            <label for="df">Data Final:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="df"
+              formControlName="dataFinal"
+              placeholder="Data Final"
+              />
+          </div>
+          <div class="form-group col-md-2" style="margin-top: 36px">
+            <button (click)="buscarUsuario()" class="btn btn-outline-info btn-sm "><i class="fas fa-search"></i>&nbsp;Buscar</button>
+          </div>
+        </div>
+        <div class="border-top" *ngIf="mostrar" >
+            <div class="col-md-12 mt-2">Aluno(a): {{nome}}</div>
+          <div id="table" class="table-responsive mt-2">
+            <table class="table table-hover">
+            <thead>
+              <tr class="bg-dark text-light">
+                <th>Data</th>
+                <th>Dia da Semana</th>
+                <th>Horário</th>
+                <th>Entrada/Saída</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let freq of frequencias">
+                <td><small>{{freq.dataMes | date: "dd/MM/yy"}}</small></td>
+                <td><small>{{freq.diaSemana}}</small></td>
+                <td><small>{{freq.horaDia}}</small></td>
+                <td><small>{{freq.statusFrequencia}}</small></td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

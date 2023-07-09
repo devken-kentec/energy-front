@@ -1,0 +1,96 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Listagem</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTAGEM DO LIVRO CAIXA DE ENTRADA
+      </h1>
+    </div>
+  </div>
+  <div style="box-shadow: 2px 2px 4px black; padding-top: 20px; padding-bottom: 20px;">
+    <form class="lista" [formGroup]="listaForm">
+      <div class="form-row col-md-12  d-flex justify-content-start d-flex align-items-center ">
+          <div class="form-group col-md-3">
+            <label for="di">Data Inicial:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="di"
+              formControlName="dataInicial"
+              />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="df">Data Final:</label>
+            <input
+              type="date"
+              class="form-control"
+              id="df"
+              formControlName="dataFinal"/>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="tp">Tipo de pagamento:</label>
+            <select
+              id="tp"
+              class="form-control"
+              formControlName="tipoPagamento">
+              <option value="">Nenhum</option>
+              <option>Dinheiro</option>
+              <option>Débito</option>
+              <option>Crédito</option>
+              <option>Cheque</option>
+              <option>Transferência</option>
+              <option>PIX</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3" style="margin-top: 34px;">
+            <button (click)="buscarPorDia()" class="btn btn-primary">Buscar</button>
+          </div>
+      </div>
+    </form>
+    <div class="table-responsive" *ngIf="tabela" style="padding: 15px;">
+      <table class="table">
+        <thead>
+          <tr >
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Data do Recebimento</th>
+            <th>Tipo do Pagamento</th>
+            <th>Valor</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let livroCaixa of livrosCaixa">
+            <td>
+              <strong>{{livroCaixa.id}}</strong>
+            </td>
+            <td>
+              <strong>{{livroCaixa.nome}}</strong>
+            </td>
+            <td>{{ livroCaixa.dataPagamento | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ livroCaixa.tipoPagamento }}</td>
+            <td>{{ livroCaixa.valorRecebido.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</td>
+            <td>
+              <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#ModalRecebimento"><i class="far fa-money-bill-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center" style="font-size: 14pt; font-weight: bold;">
+        Valor Total: {{ total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

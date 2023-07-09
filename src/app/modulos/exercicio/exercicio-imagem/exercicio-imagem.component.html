@@ -1,0 +1,109 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Inclusão de imagens</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTAR IMAGENS DOS EXERCÍCIOS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/exercicio" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="exerImgForm">
+    <div class="card" >
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Hora de vincular as imagens com seus respctivos exercícios!
+      </div>
+      <div class="card-body">
+        <div class="form-group col-md-12">
+          <div class="row">
+          <div class="form-group col-md-6">
+            <div class="form-row col-12">
+              <div class="form-group col-md-12">
+                <label for="exer">Exercicio:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exer"
+                  formControlName="descricaoExercicio"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="form-row col-12">
+              <div class="form-group col-md-12">
+                <label for="comentario">Comentário:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="comentario"
+                  formControlName="comentario"
+                />
+              </div>
+            </div>
+            <div class="form-row col-12">
+              <div class="form-group col-md-3">
+                <label for="posicao">Posição:</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="posicao"
+                  formControlName="posicao"
+                />
+              </div>
+              <div class="col-md-3">
+                <button
+                   class="btn btn-success float-right"
+                   style="margin-top: 32px;"
+                   (click)="incluirImg()">
+                   <i class="fas fa-plus-circle"></i>&nbsp;Incluir
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <div id="table" class="table-responsive" style="max-height: 350px;">
+              <table class="table table-hover" >
+                <thead>
+                  <tr class="bg-dark text-light">
+                    <th>Imagem</th>
+                    <th>Posição</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let exercicioImg of exerciciosImg">
+                    <td style="width: 200px !important;">
+                      <div class="mb-5" style="width: 100px; height: 70px;">
+                        <img style="margin-left: 30px;" width="80%" class="mb-1" [src]="renderUrl(exercicioImg.imagem)">
+                      </div>
+                      <div style="font-size: 8pt;">
+                        <small><input type="file" name="imagem" (change)="uploadImagem($event, exercicioImg.id)"/></small>
+                      </div>
+                    </td>
+                    <td>{{ exercicioImg.posicao }}ª</td>
+                    <td>
+                      <button (click)="remove(exercicioImg.id)" class="btn btn-outline-danger btn-sm">
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+

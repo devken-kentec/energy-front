@@ -1,0 +1,14 @@
+div.inicio {
+  font-weight: bold;
+}
+
+button.btn {
+  height: 70px;
+  box-shadow: 5px 5px 10px #000;
+}
+
+
+a.btn {
+  height: 70px;
+  box-shadow: 5px 5px 10px #000;
+}

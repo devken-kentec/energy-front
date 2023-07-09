@@ -1,0 +1,182 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Caixa entrada</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LIVRO CAIXA DE ENTRADA
+      </h1>
+    </div>
+  </div>
+  <form class="lista" [formGroup]="livroForm">
+    <div class="form-row col-md-12  d-flex justify-content-end d-flex align-items-center ">
+      <div class="form-group col-md-4 ">
+        <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          formControlName="nome"
+          placeholder="Pesquisar"
+          (blur)="buscarPessoa()"
+          />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                  <i class="fas fa-search"></i>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="table" class="table-responsive" *ngIf="tabela">
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-dark text-light">
+          <th>ID</th>
+          <th>Nome/Login</th>
+          <th>Telefone</th>
+          <th>Zap</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cadastro of cadastros">
+          <td>
+            <strong>{{cadastro.id}}</strong>
+          </td>
+          <td>
+            <strong>{{cadastro.nome}}</strong><br>
+            <small>{{cadastro.login}}</small>
+          </td>
+          <td>{{cadastro.fone | mask:'(00) 0000-0000' }}</td>
+          <td>{{cadastro.foneCel | mask:'(00) 0 0000-0000' }}</td>
+          <td>{{cadastro.statusMatricula }}</td>
+          <td>
+            <button class="btn btn-outline-info btn-sm" (click)="pegarNome(cadastro.nome)" data-toggle="modal" data-target="#ModalRecebimento"><i class="far fa-money-bill-alt"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalRecebimento" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalCentralizado">
+          Lançar recebimento
+        </h5>
+      </div>
+      <div class="modal-body" style="font-weight: bold;">
+        <form [formGroup]="livroForm">
+          <div class="p-2">
+            <div class="form-group col-md-12">
+              <label for="nome">Nome:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                formControlName="nome"
+                readonly
+              />
+            </div>
+            <div class="form-group col-md-12">
+              <label for="rv">Valor mensal:</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="rv"
+                  formControlName="valorRecebido"
+                  style="text-align: right;"
+                />
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="tp">Tipo de pagamento:</label>
+              <select
+                id="tp"
+                class="form-control"
+                formControlName="tipoPagamento">
+                <option value="">Nenhum</option>
+                <option>Dinheiro</option>
+                <option>Débito</option>
+                <option>Crédito</option>
+                <option>Cheque</option>
+                <option>Transferência</option>
+                <option>PIX</option>
+                <option>Outros</option>
+              </select>
+            </div>
+              <div class="form-group col-md-12 mb-5">
+                <label for="_obs">Referente:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="_obs"
+                  formControlName="referente"
+                  autocomplete="false"
+                />
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"  data-dismiss="modal">
+          <i class="fas fa-window-close"></i>&nbsp;Fechar
+        </button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#ModalConfirmacao" *ngIf="btnLancamento">
+          <i class="fas fa-save"></i> &nbsp;Lançar Recebimento
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalConfirmacao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TituloModalCentralizado">
+            Confirmar recebimento?
+          </h5>
+        </div>
+        <div class="modal-body" style="font-weight: bold;">
+          <div>Receber de {{ livroForm.value.nome.toString() }}, valor de {{ livroForm.value.valorRecebido.toString() }}.</div><br>
+          <div>Obs.: {{ livroForm.value.referente.toString() }}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"  data-dismiss="modal">
+            <i class="fas fa-window-close"></i>&nbsp;Fechar
+          </button>
+          <button class="btn btn-success" (click)="onSubmit()">
+            <i class="fas fa-save"></i> &nbsp;Confirmar Recebimento
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Fim da modal-->
+<div *ngIf="mostrarConfirmacao" class="container mt-5">
+  <div class="alert alert-success" role="alert">
+    <a type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </a>
+        Recebido de {{ livroForm.value.nome.toString() }}, valor de {{ livroForm.value.valorRecebido.toString() }}. Obs.: {{ livroForm.value.referente.toString() }}
+  </div>
+</div>
+</div>
+
+
+
+
+

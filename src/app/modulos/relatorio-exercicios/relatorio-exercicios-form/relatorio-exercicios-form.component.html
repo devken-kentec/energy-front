@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-center">
+  <div class="col-md-6" style="box-shadow: 5px 5px 10px #000;">
+    <br/>
+      <h4 class="col-md-12" style="font-weight: bold; margin-top: 15px;">
+        <span style="color:red; font-weight: bold;">ENER</span><span style="color: black; font-weight: bold;">GY</span>
+      </h4>
+      <div class="col-12" style="font-weight: bold;">
+        Exercícios para {{hoje}}<span *ngIf="hoje != 'Sábado'"> - Feira</span>.
+      </div>
+      <div class="col-md-12">
+        <div class="form-row col-md-12 mt-3" >
+            <span id="ft" style=" font-weight: bold; font-size:10pt;"> Ficha Técnica N.º : {{ fichaTecnica }}</span>
+        </div>
+        <div class="form-row col-md-12">
+          <span id="na" style="font-weight: bold; font-size: 10pt">Nome do aluno : {{ aluno }}</span>
+        </div>
+        <div class="form-row col-md-12">
+            <span id="da" style="font-weight: bold; font-size: 10pt">Data avaliação : {{ dataAvaliacao | date: 'dd/MM/yyyy'}}</span>
+        </div>
+        <div class="form-row col-md-12">
+            <span id="da" style="font-weight: bold; font-size: 10pt">Status da ficha técnica : {{ statusFichaTecnica }}</span>
+        </div>
+        <br/>
+        <div id="table" class="table-responsive">
+            <table class="table table-hover">
+            <thead>
+              <tr class="bg-dark text-light">
+                <th>Exercícios</th>
+                <th>Exec.</th>
+                <th>Det.</th>
+                <th>Tipo</th>
+                <th>Modalidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exer of exers">
+                <td><small><a type="button" (click)="mostrarImg(exer.exercicioId)" data-toggle="modal" data-target="#ModalImagens">{{exer.nome}}</a></small></td>
+                <td><small>{{exer.execucao}}</small></td>
+                <td><small>{{exer.detalhe}}</small></td>
+                <td><small>{{exer.tipo}}</small></td>
+                <td><small>{{exer.modalidade}}</small></td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        <br/>
+        <div class="form-row col-md-12">
+          <span id="da" style="color: red; font-weight: bold; font-size: 10pt">Sua mensalidade vence todo dia <span style="color: black; font-weight: bold;">{{ vencimento }}</span> de cada mês, não esqueça o pagamento!</span>
+        </div>
+      </div>
+      <br/>
+      <div>
+        <button (click)="voltar()" class="btn btn-info float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+      <br/>
+      <br/>
+  </div>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalImagens" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TituloModalCentralizado">
+            Vamos lá!
+          </h5>
+        </div>
+        <div class="modal-body" style="font-weight: bold;">
+          <div id="table" class="table-responsive" style="max-height: 350px;">
+            <table class="table table-hover" >
+              <thead>
+                <tr class="bg-dark text-light">
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let exercicioImg of exerciciosImg">
+                  <td>
+                    <div>
+                      <img width="100%" class="mb-1" [src]="renderUrl(exercicioImg.imagem)">
+                    </div>
+                    <div>
+                      <small>{{ exercicioImg.comentario }}</small>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-window-close"></i>&nbsp;Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim da modal-->

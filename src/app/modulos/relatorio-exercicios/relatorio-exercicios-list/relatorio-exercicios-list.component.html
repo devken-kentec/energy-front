@@ -1,0 +1,110 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Lista de Exercícios</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTA DE  EXERCÍCIOS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button (click)="voltar()" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="exerciciosForm">
+    <div class="card">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Lista para Conferência de Exercícios
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+            <div class="form-group col-md-3">
+              <label for="diaTreino">Dia de treino:</label>
+              <select class="form-control" id="diaTreino" formControlName="diaTreino">
+                <option value="" selected>Escolha</option>
+                <option value="Segunda" >Segunda</option>
+                <option value="Terça" >Terça</option>
+                <option value="Quarta" >Quarta</option>
+                <option value="Quinta" >Quinta</option>
+                <option value="Sexta" >Sexta</option>
+                <option value="Sábado" >Sábado</option>
+              </select>
+          </div>
+          <div class="form-group col-md-2" style="margin-top: 36px">
+            <button (click)="buscarExercicioUsuario()" class="btn btn-outline-info btn-sm "><i class="fas fa-search"></i>&nbsp;Buscar</button>
+          </div>
+        </div>
+        <div class="border-top" *ngIf="mostrar" >
+            <div class="col-md-12 mt-2">Aluno(a): {{nome | uppercase }}</div>
+          <div id="table" class="table-responsive mt-2">
+            <table class="table table-hover">
+            <thead>
+              <tr class="bg-dark text-light">
+                <th>Exercício</th>
+                <th>Nível</th>
+                <th>Tipo</th>
+                <th>Modalidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exer of exercicios">
+                <td><small><a type="button" (click)="mostrarImg(exer.exercicioId)" data-toggle="modal" data-target="#ModalImagens">{{exer.nome}}</a></small></td>
+                <td><small>{{exer.nivel }}</small></td>
+                <td><small>{{exer.tipo}}</small></td>
+                <td><small>{{exer.modalidade}}</small></td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalImagens" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="TituloModalCentralizado">
+            Vamos lá!
+          </h5>
+        </div>
+        <div class="modal-body" style="font-weight: bold;">
+          <div id="table" class="table-responsive" style="max-height: 350px;">
+            <table class="table table-hover" >
+              <thead>
+                <tr class="bg-dark text-light">
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let exercicioImg of exerciciosImg">
+                  <td>
+                    <div>
+                      <img width="100%" class="mb-1" [src]="renderUrl(exercicioImg.imagem)">
+                    </div>
+                    <div>
+                      <small>{{ exercicioImg.comentario }}</small>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-window-close"></i>&nbsp;Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim da modal-->

@@ -1,0 +1,99 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item"><a routerLink="/cadastro">Listagem</a></li>
+      <li class="breadcrumb-item active">Formulário</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        GEREÇÃO DE SENHA
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="/senha" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+  <form class="needs-validation" novalidate [formGroup]="senhaForm">
+    <div class="card" >
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Formulário para Geração de Senhas
+      </div>
+      <div class="card-body">
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-1">
+            <label for="id">Matrícula:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              formControlName="id"
+              readonly=""
+            />
+          </div>
+          <div class="form-group col-md-5">
+            <label for="nome">Nome:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nome"
+              formControlName="nome"
+              readonly=""
+            />
+          </div>
+        </div>
+        <div class="form-row col-md-12">
+          <div class="form-group col-md-3">
+            <label for="tuser">Tipo de usuário:</label>
+            <select id="tuser" class="form-control" formControlName="tipoUser">
+              <option>Administrador</option>
+              <option>Aluno</option>
+              <option>Estagiário</option>
+              <option>Professor</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="situacao">Situação:</label>
+            <select
+              id="situacao"
+              class="form-control"
+              formControlName="statusMatricula"
+            >
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="login">Login:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="login"
+              placeholder="Nome de usuário"
+              formControlName="login"
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="senha">Senha:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="senha"
+              placeholder="Senha"
+              formControlName="senha"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div>
+    <button type="submit" (click)="onSubmit()" class="btn btn-success float-right mt-2">
+      <i class="fas fa-save"></i> &nbsp;Salvar
+    </button>
+  </div>
+</div>

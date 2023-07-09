@@ -1,0 +1,83 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Listagem</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTAGEM DE FICHAS FINANCEIRAS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="new" class="btn btn-primary float-right">
+        <i class="fas fa-user-plus"></i> Nova Ficha Financeira
+      </button>
+    </div>
+  </div>
+  <form class="lista" [formGroup]="fichaFinanceiraListForm">
+    <div class="form-row col-md-12  d-flex justify-content-end d-flex align-items-center ">
+      <div class="form-group col-md-3 ">
+        <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="login"
+          formControlName="nome"
+          placeholder="Pesquisar"
+          (input)="buscarPessoa()"
+          />
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="table" class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-dark text-light">
+          <th>ID</th>
+          <th>Nome/Login</th>
+          <th>CPF</th>
+          <th>Data da geração</th>
+          <th>Dia do vencimento</th>
+          <th>Valor mensal</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ff of fichasFinanceiras">
+          <td>
+            <strong>{{ ff.fichaFinanceiraId }}</strong>
+          </td>
+          <td>
+            <strong>{{ ff.nome }}</strong><br>
+            <small>{{ ff.login }}</small>
+          </td>
+          <td>
+              {{ globalService.formatarCpf(ff.cpf) }}
+          </td>
+          <td>
+              {{ ff.dataGeracao | date: 'dd/MM/yyyy'}}
+          </td>
+          <td>
+              {{ ff.diaVencimento | number }}
+         </td>
+         <td >
+         {{ ff.valorMensal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}
+        </td>
+          <td>
+            <button (click)="onEdit(ff.fichaFinanceiraId)" class="btn btn-outline-info btn-sm"><i class="far fa-edit"></i></button>
+            <button (click)="onDelete(ff.fichaFinanceiraId)" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+          </td>
+        </tr>
+
+      </tbody>
+  </table>
+  </div>
+</div>
+

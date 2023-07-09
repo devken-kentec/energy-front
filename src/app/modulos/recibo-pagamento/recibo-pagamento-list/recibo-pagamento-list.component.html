@@ -1,0 +1,60 @@
+<div class="col-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Recibo de Pagamento Online</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        RECIBO DE PAGAMENTO ONLINE
+      </h1>
+    </div>
+    <div class="col-md">
+      <button (click)="voltar()" class="btn btn-info float-right">
+        <i class="fas fa-backward"></i>&nbsp;Voltar
+      </button>
+    </div>
+  </div>
+    <div class="card">
+      <div class="card-header bg-dark" style="color: white; font-weight: bold;">
+        Seus Pagamentos
+      </div>
+      <div class="card-body">
+        <div class="border-top">
+            <div class="row col-md-12 mt-2">
+              <div class="col-md-4">Aluno(a): {{ nome }}</div>
+              <div class="col-md-3">CPF: {{ cpf }}</div>
+              <div class="col-md-3">Data Geração: {{ dataGeracao | date:"dd/MM/yy" }}</div>
+              <div class="col-md-2" style="color: blue;">Dia vencimento: <span style="color: red; font-weight: bold;">{{ diaVencimento }}</span></div>
+            </div>
+            <div class="row col-md-12 mt-2">
+              <div class="col-md-4">Valor mensal: {{ valorMensal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</div>
+            </div>
+          <div id="table" class="table-responsive mt-2">
+            <table class="table table-hover">
+            <thead>
+              <tr class="bg-dark text-light">
+                <th>Data do pagamento</th>
+                <th>Tipo do pagamento</th>
+                <th>Status da parcela</th>
+                <th>Observação</th>
+                <th>Valor pago</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let parcela of parcelas">
+                <td>{{ parcela.dataPagamento | date:"dd/MM/yyyy" }}</td>
+                <td>{{ parcela.tipoPagamento }}</td>
+                <td>{{ parcela.statusParcela }}</td>
+                <td>{{ parcela.observacao }}</td>
+                <td>{{ parcela.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }}</td>
+              </tr>
+          </tbody>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+</div>

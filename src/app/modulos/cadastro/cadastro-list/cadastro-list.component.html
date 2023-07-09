@@ -1,0 +1,123 @@
+<div class="col-md-12">
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Listagem</li>
+    </ol>
+  </nav>
+  <div class="row mb-4">
+    <div class="col-md">
+      <h1 class="h5 border-left pl-2">
+        LISTAGEM DE PESSOAS
+      </h1>
+    </div>
+    <div class="col-md">
+      <button routerLink="new" class="btn btn-primary float-right">
+        <i class="fas fa-user-plus"></i> Nova Pessoa
+      </button>
+    </div>
+  </div>
+  <form class="lista" [formGroup]="cadListForm">
+    <div class="form-row col-md-12  d-flex justify-content-end d-flex align-items-center ">
+      <div class="form-group col-md-3 ">
+        <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="login"
+          formControlName="nome"
+          placeholder="Pesquisar"
+          (input)="buscarPessoa()"
+          />
+          <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div id="table" class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-dark text-light">
+          <th>ID</th>
+          <th>Nome/Login</th>
+          <th>Telefone/Responsável</th>
+          <th>Zap</th>
+          <th>Celular</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cadastro of cadastros">
+          <td>
+            <strong>{{cadastro.id}}</strong>
+          </td>
+          <td>
+            <strong>{{cadastro.nome}}</strong><br>
+            <small>{{cadastro.login}}</small>/<small>{{cadastro.tipoUser}}</small>
+          </td>
+          <td><a [href]="'tel:+'+'cadastro.fone'">{{cadastro.fone | mask:'(00) 0000-0000' }}</a><br>
+            <small><strong>{{cadastro.responsavel}}</strong></small>
+          </td>
+          <td><a [href]="vincularWhatsApp(cadastro.foneCel)" target="_blank">{{cadastro.foneCel | mask:'(00) 0 0000-0000' }}</a></td>
+          <td><a [href]="'tel:+'+'cadastro.foneCel2'">{{cadastro.foneCel2 | mask:'(00) 0 0000-0000' }}</a></td>
+          <td>{{cadastro.statusMatricula }}</td>
+          <td>
+            <button (click)="onEdit(cadastro.id)" class="btn btn-outline-info btn-sm"><i class="far fa-edit"></i></button>
+            <button (click)="pegarDados(cadastro.id ,cadastro.nome)" data-toggle="modal" data-target="#ModalExclusao" class="btn btn-outline-danger btn-sm"><i class="fas fa-user-slash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <form class="needs-validation lista" novalidate [formGroup]="paginacaoForm" style="margin-top: 10px;">
+    <div class="row col-12 d-flex justify-content-center align-items-center" style="font-size: 10pt;">
+        <button type="button" data-toggle="tooltip" data-placement="top" title="Menor" class="btn btn-info" (click)="paginaMenor()">
+            <i class="fas fa-minus"></i> Anterior
+          </button>
+          <div class="form-group col-md-1" style="margin-top: 15px; text-align: center;"><span>Pág. {{ pagina + 1}}  de {{ totalPages  }}</span></div>
+          <button type="button" data-toggle="tooltip" data-placement="top" title="Maior" class="btn btn-info" (click)="paginaMaior()">
+            <i class="fas fa-plus"></i> Próximo
+          </button>
+          <div class="form-group col-md-1" style="margin-top: 15px; text-align: center;">
+            <select class="form-control" id="pegaTamanho" name="quantPag" formControlName="quantPag" (change)="atualizaPagina()">
+                <option value=5>5</option>
+                <option value=10>10</option>
+                <option value=25>25</option>
+                <option value=50>50</option>
+            </select>
+          </div>
+      <span class="float-right">Total de registro: {{ totalElements }}</span>
+  </div>
+  </form>
+  <!-- Modal -->
+  <div class="modal fade" id="ModalExclusao" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="TituloModalCentralizado">
+          Vamos lá!
+        </h5>
+      </div>
+      <div class="modal-body" style="font-weight: bold;">
+        Deseja inativar o registro de {{_nome}}?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="onClose()" data-dismiss="modal">
+          <i class="fas fa-window-close"></i>&nbsp;Fechar
+        </button>
+        <button class="btn btn-success" (click)="onDelete()">
+          <i class="fas fa-save"></i> &nbsp;Inativar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Fim da modal-->
+</div>
+
+
+
+
