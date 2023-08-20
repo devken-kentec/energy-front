@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   nomeEmpresa: string;
   cont: any = 0;
   usuarioAutenticado: boolean;
-  espera: boolean = true;
+  espera: boolean = false;
 
   constructor(private globalService: GlobalService,
               private router: Router,
@@ -45,6 +45,45 @@ export class AppComponent implements OnInit {
 
     this.startServer();
     this.mensagemDeEspera();
+
+    this.usuarioAutenticado = this.authService.isAuthenticated();
+
+    if(this.usuarioAutenticado){
+      this.authService.gTipo.subscribe((res: any)=>{
+        this.tipo = res;
+        console.log("Ver tipo de dado", res);
+
+          if(this.tipo === "Administrador"){
+              this.visiCad = true;
+              this.visiExe = true;
+              this.visiFreq = true;
+              this.visiFicTec = true;
+              this.visiMens = true;
+              this.visiLisExer = true;
+              this.visiSenha = true;
+              this.visiCon = true;
+              console.log("Teste Adm");
+
+          } else if(this.tipo === "Aluno"){
+            this.visiFreq = true;
+            this.visiCon = true;
+            console.log("Teste ALuno");
+
+          } else if(this.tipo === "Estagiário"){
+
+            this.visiCon = true;
+            this.visiFreq = true;
+            this.visiFicTec = true;
+            console.log("Teste Estagi");
+
+          } else if(this.tipo === "Professor"){
+            this.visiCon = true;
+            this.visiFreq = true;
+            this.visiFicTec = true;
+            console.log("Teste Prof");
+          }
+       });
+    }
 
     this.authService.mostrarMenuEmitter.subscribe(
       mostrar => {this.mostrarMenu = mostrar
@@ -61,7 +100,7 @@ export class AppComponent implements OnInit {
      );
 
     this.router.navigate(['/login']);
-    //this.usuarioAutenticado = this.authService.isAuthenticated();
+
  }
 
   exit(){
