@@ -18,20 +18,9 @@ export class AppComponent implements OnInit {
   mostrarMenu: boolean = false;
   user: string = "";
   tipo: string = "";
-  vCad: boolean = false;
-  vFin: boolean = false;
-  vCon: boolean = false;
-  visiCad: boolean = false;
-  visiExe: boolean = false;
-  visiFreq: boolean = false;
-  visiFicTec: boolean = false;
-  visiMens: boolean = false;
-  visiLisExer: boolean = false;
-  visiSenha: boolean = false;
-  visiCon: boolean = false;
-  visiLce: boolean = false;
+
   licenca: string = "6b656e746563-3032-656e65726779-65737061c3a76f207669766168-3031";
-  nomeEmpresa: string;
+  nomeEmpresa: string = "KenTec";
   cont: any = 0;
   usuarioAutenticado: boolean;
   espera: boolean = false;
@@ -48,43 +37,6 @@ export class AppComponent implements OnInit {
 
     this.usuarioAutenticado = this.authService.isAuthenticated();
 
-    if(this.usuarioAutenticado){
-      this.authService.gTipo.subscribe((res: any)=>{
-        this.tipo = res;
-        console.log("Ver tipo de dado", res);
-
-          if(this.tipo === "Administrador"){
-              this.visiCad = true;
-              this.visiExe = true;
-              this.visiFreq = true;
-              this.visiFicTec = true;
-              this.visiMens = true;
-              this.visiLisExer = true;
-              this.visiSenha = true;
-              this.visiCon = true;
-              console.log("Teste Adm");
-
-          } else if(this.tipo === "Aluno"){
-            this.visiFreq = true;
-            this.visiCon = true;
-            console.log("Teste ALuno");
-
-          } else if(this.tipo === "Estagiário"){
-
-            this.visiCon = true;
-            this.visiFreq = true;
-            this.visiFicTec = true;
-            console.log("Teste Estagi");
-
-          } else if(this.tipo === "Professor"){
-            this.visiCon = true;
-            this.visiFreq = true;
-            this.visiFicTec = true;
-            console.log("Teste Prof");
-          }
-       });
-    }
-
     this.authService.mostrarMenuEmitter.subscribe(
       mostrar => {this.mostrarMenu = mostrar
      });
@@ -98,9 +50,7 @@ export class AppComponent implements OnInit {
      this.authService.gLogin.subscribe(
        res=> { this.user = res }
      );
-
     this.router.navigate(['/login']);
-
  }
 
   exit(){
